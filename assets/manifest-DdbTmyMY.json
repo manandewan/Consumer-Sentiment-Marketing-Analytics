@@ -1,0 +1,25 @@
+{
+  "name": "Consumer Sentiment Marketing Analytics",
+  "short_name": "SentimentAI",
+  "description": "Multi-Agent Consumer Sentiment & OSINT Marketing Analytics Engine",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#090d16",
+  "theme_color": "#090d16",
+  "icons": [
+    {
+      "src": "./apple-touch-icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./logo.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    }
+  ]
+}
