@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agar.io MARL Self-Play Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="app-container">
+    <!-- Header Navbar -->
+    <header class="navbar">
+      <div class="logo">
+        <span class="logo-icon">🦠</span>
+        <h2>Agar.io <span class="badge">MARL Self-Play</span></h2>
+      </div>
+      <div class="status-pill">
+        <span class="status-dot green"></span>
+        <span id="connection-status">Connecting to Engine...</span>
+      </div>
+    </header>
+
+    <!-- Main Content Layout -->
+    <main class="dashboard-grid">
+      <!-- Left: Live Arena Canvas -->
+      <section class="card arena-card">
+        <div class="card-header">
+          <h3>Live Game Arena</h3>
+          <div class="arena-stats">
+            <span>FPS: <strong id="fps-counter">60</strong></span>
+            <span>Step: <strong id="step-counter">0</strong></span>
+          </div>
+        </div>
+        <div class="canvas-wrapper">
+          <canvas id="agario-canvas" width="800" height="600"></canvas>
+        </div>
+      </section>
+
+      <!-- Right: Real-time Leaderboard & Training Stats -->
+      <section class="sidebar-column">
+        <!-- Mass Leaderboard -->
+        <div class="card leaderboard-card">
+          <div class="card-header">
+            <h3>Leaderboard</h3>
+            <span class="subtext">Top Mass</span>
+          </div>
+          <ul id="leaderboard-list" class="leaderboard-list">
+            <!-- Dynamic items -->
+          </ul>
+        </div>
+
+        <!-- Training Metrics Chart -->
+        <div class="card chart-card">
+          <div class="card-header">
+            <h3>Training Progress</h3>
+            <span class="subtext">Avg Mass & Rewards</span>
+          </div>
+          <div class="chart-wrapper">
+            <canvas id="metrics-chart"></canvas>
+          </div>
+        </div>
+
+        <!-- ELO League Standings -->
+        <div class="card league-card">
+          <div class="card-header">
+            <h3>League Standings</h3>
+            <span class="subtext">ELO Rating Pool</span>
+          </div>
+          <table class="league-table">
+            <thead>
+              <tr>
+                <th>Agent Model</th>
+                <th>Role</th>
+                <th>ELO</th>
+              </tr>
+            </thead>
+            <tbody id="league-table-body">
+              <tr>
+                <td>Current Policy</td>
+                <td><span class="role-badge main">Learner</span></td>
+                <td><strong>1245</strong></td>
+              </tr>
+              <tr>
+                <td>Step 500 Checkpoint</td>
+                <td><span class="role-badge league">Historical</span></td>
+                <td><strong>1180</strong></td>
+              </tr>
+              <tr>
+                <td>Heuristic Bot</td>
+                <td><span class="role-badge bot">Baseline</span></td>
+                <td><strong>1000</strong></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

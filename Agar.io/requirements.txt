@@ -1,0 +1,9 @@
+torch>=2.0.0
+numpy>=1.24.0
+gymnasium>=0.28.0
+pettingzoo>=1.23.0
+websockets>=11.0
+grpcio>=1.50.0
+protobuf>=4.21.0
+matplotlib>=3.7.0
+pillow>=9.5.0

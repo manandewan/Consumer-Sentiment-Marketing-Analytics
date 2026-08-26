@@ -1,0 +1,28 @@
+{
+  "manifest_version": 3,
+  "name": "Agar.io MARL AI Agent Controller",
+  "version": "1.0",
+  "description": "Deploys trained PyTorch Recurrent PPO AI Model onto live agar.io browser canvas",
+  "permissions": [
+    "activeTab",
+    "scripting"
+  ],
+  "host_permissions": [
+    "*://agar.io/*",
+    "*://*.agar.io/*",
+    "ws://127.0.0.1:8081/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "*://agar.io/*",
+        "*://*.agar.io/*"
+      ],
+      "js": [
+        "input_controller.js",
+        "content_script.js"
+      ],
+      "run_at": "document_end"
+    }
+  ]
+}
