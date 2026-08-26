@@ -1,34 +1,41 @@
 {
+  "id": "/Consumer-Sentiment-Marketing-Analytics/",
   "name": "Consumer Sentiment Marketing Analytics",
   "short_name": "SentimentAI",
   "description": "Multi-Agent Consumer Sentiment & OSINT Marketing Analytics Engine",
-  "start_url": "./",
-  "scope": "./",
+  "start_url": "/Consumer-Sentiment-Marketing-Analytics/",
+  "scope": "/Consumer-Sentiment-Marketing-Analytics/",
   "display": "standalone",
   "orientation": "portrait-primary",
   "background_color": "#090d16",
   "theme_color": "#090d16",
   "icons": [
     {
-      "src": "./icon-192.png",
+      "src": "/Consumer-Sentiment-Marketing-Analytics/icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "./icon-512.png",
+      "src": "/Consumer-Sentiment-Marketing-Analytics/icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "./apple-touch-icon.png",
+      "src": "/Consumer-Sentiment-Marketing-Analytics/icon-maskable-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
     },
     {
-      "src": "./logo.jpg",
+      "src": "/Consumer-Sentiment-Marketing-Analytics/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/Consumer-Sentiment-Marketing-Analytics/logo.jpg",
       "sizes": "512x512",
       "type": "image/jpeg",
       "purpose": "any"
