@@ -16,12 +16,12 @@
   max-width: 1440px;
   width: 100%;
   margin: 0 auto;
-  padding: 1rem;
+  padding: 1rem 1rem calc(4rem + env(safe-area-inset-bottom, 0px)) 1rem;
 }
 
 @media (min-width: 768px) {
   .app-main-content {
-    padding: 2rem;
+    padding: 2rem 2rem calc(3rem + env(safe-area-inset-bottom, 0px)) 2rem;
   }
 }
 
@@ -684,12 +684,13 @@
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  height: 320px;
+  height: 380px;
+  min-height: 350px;
 }
 
 @media (min-width: 768px) {
   .terminal-card {
-    height: 380px;
+    height: 420px;
   }
 }
 
@@ -779,13 +780,14 @@
   padding: 1rem;
   display: flex;
   flex-direction: column;
-  height: 320px;
+  height: 440px;
+  min-height: 400px;
 }
 
 @media (min-width: 768px) {
   .scraped-snippets-card {
     padding: 1.25rem;
-    height: 380px;
+    height: 480px;
   }
 }
 
