@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
-import { Network, Globe, BarChart3, FileText, Copy, Check, RotateCcw, Sliders, Sparkles, Code2, Save } from 'lucide-react';
+import React, { useState, useRef } from 'react';
+import { Network, Globe, BarChart3, FileText, Copy, Check, RotateCcw, Sliders, Sparkles, Code2, AlertCircle } from 'lucide-react';
 
 export default function PromptHub({ prompts, setPrompts, onResetPrompts }) {
   const [selectedAgentId, setSelectedAgentId] = useState('orchestrator');
   const [copiedId, setCopiedId] = useState(null);
   const [notification, setNotification] = useState('');
 
+  const editorRef = useRef(null);
   const currentAgent = prompts[selectedAgentId];
 
   const agentIcons = {
@@ -45,6 +46,23 @@ export default function PromptHub({ prompts, setPrompts, onResetPrompts }) {
     }));
   };
 
+  const handleSelectAgent = (agentId) => {
+    setSelectedAgentId(agentId);
+    if (window.innerWidth < 1024 && editorRef.current) {
+      setTimeout(() => {
+        editorRef.current.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }, 100);
+    }
+  };
+
+  const handleConfirmReset = () => {
+    if (window.confirm("Are you sure you want to reset all agent system instructions and temperatures to defaults?")) {
+      onResetPrompts();
+      setNotification('All prompts reset to defaults.');
+      setTimeout(() => setNotification(''), 2500);
+    }
+  };
+
   return (
     <div className="prompt-hub-container">
       {notification && (
@@ -60,7 +78,7 @@ export default function PromptHub({ prompts, setPrompts, onResetPrompts }) {
           <p>Inspect, customize, and tune system instructions for your CrewAI / LangGraph agent pipeline.</p>
         </div>
 
-        <button className="secondary-btn" onClick={onResetPrompts}>
+        <button className="secondary-btn danger-hover" onClick={handleConfirmReset}>
           <RotateCcw size={16} />
           <span>Reset All to Defaults</span>
         </button>
@@ -77,7 +95,7 @@ export default function PromptHub({ prompts, setPrompts, onResetPrompts }) {
               <div
                 key={agent.id}
                 className={`sidebar-agent-card ${isSelected ? 'is-selected' : ''}`}
-                onClick={() => setSelectedAgentId(agent.id)}
+                onClick={() => handleSelectAgent(agent.id)}
                 style={{
                   borderLeftColor: isSelected ? agent.color : 'transparent'
                 }}
@@ -96,7 +114,7 @@ export default function PromptHub({ prompts, setPrompts, onResetPrompts }) {
         </div>
 
         {/* Prompt Editor & Controls */}
-        <div className="prompt-editor-panel">
+        <div className="prompt-editor-panel" ref={editorRef}>
           <div className="editor-top-bar">
             <div className="agent-title-meta">
               <span className="agent-badge-pill" style={{ background: `${currentAgent.color}20`, color: currentAgent.color }}>
@@ -111,7 +129,7 @@ export default function PromptHub({ prompts, setPrompts, onResetPrompts }) {
                 onClick={() => handleCopyPrompt(currentAgent.systemPrompt, currentAgent.id)}
                 title="Copy System Prompt"
               >
-                {copiedId === currentAgent.id ? <Check size={18} className="success-icon" /> : <Copy size={18} />}
+                {copiedId === currentAgent.id ? <Check size={18} className="success-icon text-emerald-400" /> : <Copy size={18} />}
                 <span>{copiedId === currentAgent.id ? 'Copied' : 'Copy Prompt'}</span>
               </button>
             </div>
@@ -130,7 +148,7 @@ export default function PromptHub({ prompts, setPrompts, onResetPrompts }) {
               className="prompt-textarea"
               value={currentAgent.systemPrompt}
               onChange={(e) => handlePromptChange(e.target.value)}
-              rows={16}
+              rows={14}
               spellCheck="false"
             />
           </div>
