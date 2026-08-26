@@ -88,10 +88,10 @@ export default function PipelineExecution({ prompts, activeAgentId, setActiveAge
     }
   }, [executionData]);
 
-  // Auto-scroll terminal logs stream to bottom
+  // Auto-scroll inside terminal container only (without scrolling page window)
   useEffect(() => {
-    if (logsEndRef.current) {
-      logsEndRef.current.scrollIntoView({ behavior: 'smooth' });
+    if (logsEndRef.current && logsEndRef.current.parentElement) {
+      logsEndRef.current.parentElement.scrollTop = logsEndRef.current.parentElement.scrollHeight;
     }
   }, [logs]);
 
