@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { PRESET_TARGETS, generateCustomTargetData, analyzeSnippets } from '../data/mockData';
 import { getRecommendedSources } from '../data/sourceRecommender';
 import ReportViewer from './ReportViewer';
-import { Play, RotateCcw, CheckCircle2, Loader2, Network, Globe, BarChart3, FileText, ChevronRight, Search, Sparkles, Terminal, ShieldCheck, Compass, ExternalLink, Award } from 'lucide-react';
+import { Play, RotateCcw, CheckCircle2, Loader2, Network, Globe, BarChart3, FileText, ChevronRight, Search, Sparkles, Terminal, Compass, ExternalLink, ArrowDown } from 'lucide-react';
 
 export default function PipelineExecution({ prompts, activeAgentId, setActiveAgentId, isRunning, setIsRunning }) {
   const [selectedPresetId, setSelectedPresetId] = useState('zomato');
@@ -11,9 +11,14 @@ export default function PipelineExecution({ prompts, activeAgentId, setActiveAge
   const [logs, setLogs] = useState([]);
   const [executionData, setExecutionData] = useState(null);
 
+  // Mobile output tab switcher ('logs' | 'snippets')
+  const [mobileOutputTab, setMobileOutputTab] = useState('logs');
+
   // Snippet Filters
   const [snippetFilter, setSnippetFilter] = useState('all');
   const [snippetSearch, setSnippetSearch] = useState('');
+
+  const reportSectionRef = useRef(null);
 
   const steps = [
     {
@@ -73,6 +78,15 @@ export default function PipelineExecution({ prompts, activeAgentId, setActiveAge
   const currentTarget = getTargetData();
   const recommendedMatrix = getRecommendedSources(currentTarget.name);
 
+  // Auto-scroll to report when execution finishes
+  useEffect(() => {
+    if (executionData && reportSectionRef.current) {
+      setTimeout(() => {
+        reportSectionRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 200);
+    }
+  }, [executionData]);
+
   // Filter snippets based on tab and search
   const filteredSnippets = currentTarget.researcherData.snippets.filter(s => {
     const matchesSentiment = snippetFilter === 'all' || s.sentiment === snippetFilter;
@@ -93,6 +107,7 @@ export default function PipelineExecution({ prompts, activeAgentId, setActiveAge
     setActiveAgentId('orchestrator');
     setLogs([]);
     setExecutionData(null);
+    setMobileOutputTab('logs');
 
     const target = getTargetData();
     const recs = getRecommendedSources(target.name);
@@ -108,6 +123,7 @@ export default function PipelineExecution({ prompts, activeAgentId, setActiveAge
       // Step 2: Web Researcher
       setCurrentStepIndex(1);
       setActiveAgentId('researcher');
+      setMobileOutputTab('snippets');
       addLog('Web Researcher', `Scraping verified Indian platforms (${recs.bestSources.slice(0, 3).map(s => s.name).join(', ')})...`);
       addLog('Web Researcher', `Successfully extracted ${target.researcherData.sourcesCount} customer reviews with Indian regional context. Strict domain constraints satisfied.`, 'success');
       addLog('Orchestrator', `Received 200 raw reviews from Web Researcher. Handoff to Sentiment Analyst...`, 'action');
@@ -146,6 +162,12 @@ export default function PipelineExecution({ prompts, activeAgentId, setActiveAge
     if (isRunning) return;
     setSelectedPresetId(id);
     setCustomInput('');
+  };
+
+  const scrollToReport = () => {
+    if (reportSectionRef.current) {
+      reportSectionRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   };
 
   return (
@@ -270,10 +292,28 @@ export default function PipelineExecution({ prompts, activeAgentId, setActiveAge
         })}
       </div>
 
+      {/* Mobile Output Switcher Tabs */}
+      <div className="mobile-output-tabs-bar">
+        <button
+          className={`mobile-tab-btn ${mobileOutputTab === 'logs' ? 'active' : ''}`}
+          onClick={() => setMobileOutputTab('logs')}
+        >
+          <Terminal size={15} />
+          <span>Live Logs ({logs.length})</span>
+        </button>
+        <button
+          className={`mobile-tab-btn ${mobileOutputTab === 'snippets' ? 'active' : ''}`}
+          onClick={() => setMobileOutputTab('snippets')}
+        >
+          <Globe size={15} />
+          <span>Scraped Reviews (200)</span>
+        </button>
+      </div>
+
       {/* Execution Output split view */}
       <div className="execution-output-grid">
         {/* Terminal Live Stream */}
-        <div className="terminal-card">
+        <div className={`terminal-card ${mobileOutputTab !== 'logs' ? 'mobile-hidden' : ''}`}>
           <div className="terminal-header">
             <div className="terminal-title">
               <Terminal size={16} />
@@ -306,7 +346,7 @@ export default function PipelineExecution({ prompts, activeAgentId, setActiveAge
         </div>
 
         {/* Scraped Raw Snippets Inspector */}
-        <div className="scraped-snippets-card">
+        <div className={`scraped-snippets-card ${mobileOutputTab !== 'snippets' ? 'mobile-hidden' : ''}`}>
           <div className="card-header-bar">
             <Globe size={18} className="text-emerald-400" />
             <h3>Web Researcher Indian OSINT Feedback</h3>
@@ -371,9 +411,18 @@ export default function PipelineExecution({ prompts, activeAgentId, setActiveAge
         </div>
       </div>
 
+      {/* Floating Jump to Report Pill when complete */}
+      {executionData && (
+        <div className="floating-report-banner" onClick={scrollToReport}>
+          <Sparkles size={16} className="text-amber-400" />
+          <span>Executive Report Ready — Tap to View</span>
+          <ArrowDown size={14} />
+        </div>
+      )}
+
       {/* Final Executive Report synthesis presentation */}
       {executionData && (
-        <div className="final-report-section">
+        <div className="final-report-section" ref={reportSectionRef}>
           <ReportViewer
             targetName={executionData.name}
             reportMarkdown={executionData.synthesizerData.markdown}

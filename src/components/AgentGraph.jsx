@@ -95,7 +95,7 @@ export default function AgentGraph({ activeAgentId, prompts, onSelectPrompt }) {
           </div>
 
           {/* Connection Lines Visualizer */}
-          <div className="flow-lines-container">
+          <div className="flow-lines-container desktop-only">
             <div className="flow-line left-branch">
               <span className="line-label">1. Delegation</span>
             </div>
@@ -105,6 +105,11 @@ export default function AgentGraph({ activeAgentId, prompts, onSelectPrompt }) {
             <div className="flow-line right-branch">
               <span className="line-label">3. Final Synthesis</span>
             </div>
+          </div>
+
+          <div className="mobile-flow-connector mobile-only">
+            <div className="vertical-pulse-line"></div>
+            <span className="mobile-flow-badge">Sequential Multi-Agent Delegation</span>
           </div>
 
           {/* Workers Row */}

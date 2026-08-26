@@ -64,10 +64,11 @@ export default function Navbar({ activeTab, setActiveTab, currentModel, isRunnin
       </nav>
 
       <div className="navbar-right">
-        <div className="model-chip">
+        <div className="model-chip" title={currentModel}>
           <Sparkles className="sparkle-icon" />
-          <span className="model-label">Model:</span>
-          <span className="model-val">{currentModel}</span>
+          <span className="model-label desktop-only">Model:</span>
+          <span className="model-val desktop-only">{currentModel}</span>
+          <span className="model-val mobile-only">Gemini 3.6</span>
         </div>
       </div>
     </header>
