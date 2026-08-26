@@ -1,56 +1,68 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
   <defs>
-    <!-- Background Shield Gradient -->
-    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#0f172a"/>
-      <stop offset="50%" stop-color="#1e1b4b"/>
+    <!-- Background Radial Gradient -->
+    <radialGradient id="bgGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#1e1b4b"/>
+      <stop offset="70%" stop-color="#0f172a"/>
       <stop offset="100%" stop-color="#090d16"/>
+    </radialGradient>
+
+    <!-- Sentiment Wave Gradient -->
+    <linearGradient id="waveGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#6366f1"/>
+      <stop offset="50%" stop-color="#38bdf8"/>
+      <stop offset="100%" stop-color="#10b981"/>
     </linearGradient>
 
-    <!-- Outer Neon Ring Gradient -->
-    <linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#38bdf8"/>
-      <stop offset="50%" stop-color="#6366f1"/>
-      <stop offset="100%" stop-color="#a855f7"/>
+    <!-- Core Shield Gradient -->
+    <linearGradient id="shieldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4338ca"/>
+      <stop offset="100%" stop-color="#1e1b4b"/>
     </linearGradient>
 
-    <!-- Inner Core Gradient -->
-    <linearGradient id="coreGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#4f46e5"/>
-      <stop offset="100%" stop-color="#312e81"/>
-    </linearGradient>
-
-    <!-- Glow Effect -->
-    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
-      <feGaussianBlur stdDeviation="10" result="blur"/>
+    <!-- Glow Filter -->
+    <filter id="neonGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
       <feComposite in="SourceGraphic" in2="blur" operator="over"/>
     </filter>
 
-    <filter id="coreGlow" x="-30%" y="-30%" width="160%" height="160%">
-      <feDropShadow dx="0" dy="8" stdDeviation="16" flood-color="#6366f1" flood-opacity="0.6"/>
+    <filter id="softGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="10" stdDeviation="18" flood-color="#6366f1" flood-opacity="0.45"/>
     </filter>
   </defs>
 
-  <!-- PWA Base Canvas -->
-  <rect width="512" height="512" rx="112" fill="url(#bgGrad)"/>
+  <!-- PWA Solid Base Canvas -->
+  <rect width="512" height="512" fill="url(#bgGlow)"/>
 
-  <!-- Glowing Outer Neon Ring -->
-  <circle cx="256" cy="256" r="195" fill="none" stroke="url(#ringGrad)" stroke-width="8" opacity="0.85" filter="url(#glow)"/>
+  <!-- Concentric Analytics Radar Rings -->
+  <circle cx="256" cy="256" r="205" fill="none" stroke="#6366f1" stroke-width="2" opacity="0.25"/>
+  <circle cx="256" cy="256" r="160" fill="none" stroke="#38bdf8" stroke-width="2" opacity="0.35" stroke-dasharray="8 8"/>
+  <circle cx="256" cy="256" r="115" fill="none" stroke="#10b981" stroke-width="2" opacity="0.45"/>
 
-  <!-- Core Violet Orb -->
-  <circle cx="256" cy="256" r="165" fill="url(#coreGrad)" filter="url(#coreGlow)"/>
+  <!-- Dynamic Geometric Neural Prism / Diamond Shield -->
+  <polygon points="256,76 416,196 356,416 156,416 96,196" 
+           fill="url(#shieldGrad)" 
+           stroke="url(#waveGrad)" 
+           stroke-width="6" 
+           filter="url(#softGlow)"/>
 
-  <!-- Dynamic Electric Lightning / Intelligence Spark -->
-  <path d="M276 100 L168 266 L252 266 L236 412 L344 246 L260 246 Z" 
-        fill="#ffffff" 
-        filter="url(#glow)"/>
+  <!-- Internal Upward Ascending Sentiment Analytics Wave -->
+  <path d="M140 330 Q 200 370, 240 270 T 360 160" 
+        fill="none" 
+        stroke="url(#waveGrad)" 
+        stroke-width="12" 
+        stroke-linecap="round"
+        filter="url(#neonGlow)"/>
 
-  <!-- Satellite Multi-Agent Data Nodes (Orchestrator + Workers) -->
-  <circle cx="152" cy="170" r="14" fill="#38bdf8" filter="url(#glow)"/>
-  <circle cx="360" cy="170" r="14" fill="#10b981" filter="url(#glow)"/>
-  <circle cx="360" cy="342" r="14" fill="#f59e0b" filter="url(#glow)"/>
+  <!-- Growth Momentum Arrow Head -->
+  <polygon points="360,130 380,180 335,165" fill="#10b981" filter="url(#neonGlow)"/>
 
-  <line x1="152" y1="170" x2="210" y2="210" stroke="#38bdf8" stroke-width="3" stroke-dasharray="4 4" opacity="0.6"/>
-  <line x1="360" y1="170" x2="302" y2="210" stroke="#10b981" stroke-width="3" stroke-dasharray="4 4" opacity="0.6"/>
-  <line x1="360" y1="342" x2="295" y2="300" stroke="#f59e0b" stroke-width="3" stroke-dasharray="4 4" opacity="0.6"/>
+  <!-- Multi-Agent Neural Interaction Nodes -->
+  <circle cx="140" cy="330" r="16" fill="#6366f1" stroke="#ffffff" stroke-width="3" filter="url(#neonGlow)"/>
+  <circle cx="240" cy="270" r="18" fill="#38bdf8" stroke="#ffffff" stroke-width="3.5" filter="url(#neonGlow)"/>
+  <circle cx="360" cy="160" r="18" fill="#10b981" stroke="#ffffff" stroke-width="3.5" filter="url(#neonGlow)"/>
+
+  <!-- Central Intelligence Core Beacon -->
+  <circle cx="256" cy="215" r="10" fill="#fbbf24" filter="url(#neonGlow)"/>
+  <circle cx="256" cy="215" r="4" fill="#ffffff"/>
 </svg>
