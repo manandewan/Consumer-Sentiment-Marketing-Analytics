@@ -1,13 +1,13 @@
 import React from 'react';
-import { Bot, Cpu, Network, FileCode2, PlayCircle, Sparkles, Layers } from 'lucide-react';
+import { Zap, FileCode2, PlayCircle, Sparkles, Layers } from 'lucide-react';
 
 export default function Navbar({ activeTab, setActiveTab, currentModel, isRunning }) {
   return (
     <header className="app-navbar">
       <div className="navbar-left">
         <div className="logo-badge">
-          <div className="logo-icon-wrap">
-            <Network className="logo-icon" />
+          <div className="logo-icon-wrap lightning-logo">
+            <Zap className="logo-icon lightning-icon" fill="white" size={22} />
           </div>
           <div className="logo-text-group">
             <div className="logo-title">
