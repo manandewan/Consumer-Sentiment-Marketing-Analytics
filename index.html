@@ -2,13 +2,42 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/Consumer-Sentiment-Marketing-Analytics/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>marketing-2-0</title>
+    <link rel="icon" href="./logo.jpg" />
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
+    <link rel="manifest" href="./manifest.json" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="theme-color" content="#090d16" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="SentimentAI" />
+    <meta name="description" content="Multi-Agent Consumer Sentiment & OSINT Marketing Analytics Engine" />
+
+    <title>Consumer Sentiment Marketing Analytics</title>
     <script type="module" crossorigin src="/Consumer-Sentiment-Marketing-Analytics/assets/index-cOCI3cIX.js"></script>
     <link rel="stylesheet" crossorigin href="/Consumer-Sentiment-Marketing-Analytics/assets/index-BSsBm-Tt.css">
   </head>
   <body>
     <div id="root"></div>
+
+    <!-- Service Worker Registration for Auto-Updates & Offline PWA Support -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker
+            .register('./sw.js')
+            .then((registration) => {
+              console.log('[PWA] ServiceWorker registered with scope:', registration.scope);
+
+              // Check for updates on load
+              registration.update();
+            })
+            .catch((error) => {
+              console.warn('[PWA] ServiceWorker registration failed:', error);
+            });
+        });
+      }
+    </script>
   </body>
 </html>
