@@ -1,33 +1,56 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
   <defs>
-    <!-- Background Circle Gradient -->
-    <linearGradient id="circleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#7c6dfa"/>
-      <stop offset="100%" stop-color="#5646eb"/>
+    <!-- Background Shield Gradient -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="50%" stop-color="#1e1b4b"/>
+      <stop offset="100%" stop-color="#090d16"/>
     </linearGradient>
 
-    <!-- Subtle Glow Shadow -->
-    <filter id="dropShadow" x="-10%" y="-10%" width="120%" height="120%">
-      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#000000" flood-opacity="0.35"/>
+    <!-- Outer Neon Ring Gradient -->
+    <linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="50%" stop-color="#6366f1"/>
+      <stop offset="100%" stop-color="#a855f7"/>
+    </linearGradient>
+
+    <!-- Inner Core Gradient -->
+    <linearGradient id="coreGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4f46e5"/>
+      <stop offset="100%" stop-color="#312e81"/>
+    </linearGradient>
+
+    <!-- Glow Effect -->
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="10" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
     </filter>
 
-    <filter id="boltGlow" x="-20%" y="-20%" width="140%" height="140%">
-      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#ffffff" flood-opacity="0.25"/>
+    <filter id="coreGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="8" stdDeviation="16" flood-color="#6366f1" flood-opacity="0.6"/>
     </filter>
   </defs>
 
-  <!-- Dark PWA rounded icon background -->
-  <rect width="512" height="512" rx="112" fill="#090d16"/>
+  <!-- PWA Base Canvas -->
+  <rect width="512" height="512" rx="112" fill="url(#bgGrad)"/>
 
-  <!-- Main Purple/Indigo Circle -->
-  <circle cx="256" cy="256" r="200" fill="url(#circleGrad)" filter="url(#dropShadow)"/>
+  <!-- Glowing Outer Neon Ring -->
+  <circle cx="256" cy="256" r="195" fill="none" stroke="url(#ringGrad)" stroke-width="8" opacity="0.85" filter="url(#glow)"/>
 
-  <!-- Crisp White Lightning Bolt Icon -->
-  <path d="M280 96 L160 276 L250 276 L232 416 L352 236 L262 236 Z" 
+  <!-- Core Violet Orb -->
+  <circle cx="256" cy="256" r="165" fill="url(#coreGrad)" filter="url(#coreGlow)"/>
+
+  <!-- Dynamic Electric Lightning / Intelligence Spark -->
+  <path d="M276 100 L168 266 L252 266 L236 412 L344 246 L260 246 Z" 
         fill="#ffffff" 
-        filter="url(#boltGlow)"
-        stroke="#ffffff"
-        stroke-width="4"
-        stroke-linejoin="round"
-        stroke-linecap="round"/>
+        filter="url(#glow)"/>
+
+  <!-- Satellite Multi-Agent Data Nodes (Orchestrator + Workers) -->
+  <circle cx="152" cy="170" r="14" fill="#38bdf8" filter="url(#glow)"/>
+  <circle cx="360" cy="170" r="14" fill="#10b981" filter="url(#glow)"/>
+  <circle cx="360" cy="342" r="14" fill="#f59e0b" filter="url(#glow)"/>
+
+  <line x1="152" y1="170" x2="210" y2="210" stroke="#38bdf8" stroke-width="3" stroke-dasharray="4 4" opacity="0.6"/>
+  <line x1="360" y1="170" x2="302" y2="210" stroke="#10b981" stroke-width="3" stroke-dasharray="4 4" opacity="0.6"/>
+  <line x1="360" y1="342" x2="295" y2="300" stroke="#f59e0b" stroke-width="3" stroke-dasharray="4 4" opacity="0.6"/>
 </svg>

@@ -1,10 +1,12 @@
-const CACHE_NAME = 'sentiment-analytics-pwa-v1';
+const CACHE_NAME = 'sentiment-analytics-pwa-v2';
 const PRECACHE_ASSETS = [
   './',
   './index.html',
   './manifest.json',
-  './logo.jpg',
+  './icon-192.png',
+  './icon-512.png',
   './apple-touch-icon.png',
+  './logo.jpg',
   './favicon.svg'
 ];
 
@@ -34,13 +36,11 @@ self.addEventListener('activate', (event) => {
 
 // Fetch Event - Network-First Strategy with Cache Fallback
 self.addEventListener('fetch', (event) => {
-  // Only handle GET requests
   if (event.request.method !== 'GET') return;
 
   event.respondWith(
     fetch(event.request)
       .then((networkResponse) => {
-        // If response is valid, update the cache with the new version
         if (networkResponse && networkResponse.status === 200) {
           const responseToCache = networkResponse.clone();
           caches.open(CACHE_NAME).then((cache) => {
@@ -50,13 +50,11 @@ self.addEventListener('fetch', (event) => {
         return networkResponse;
       })
       .catch(async () => {
-        // Network failed (offline) - Serve from cache
         const cachedResponse = await caches.match(event.request);
         if (cachedResponse) {
           return cachedResponse;
         }
 
-        // If navigating to an HTML page while offline, fallback to index.html
         if (event.request.mode === 'navigate') {
           return caches.match('./index.html') || caches.match('./');
         }
