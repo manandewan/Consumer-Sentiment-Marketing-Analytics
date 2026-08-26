@@ -1137,6 +1137,22 @@
   }
 }
 
+.report-buttons-group {
+  display: flex;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+@media (min-width: 640px) {
+  .report-buttons-group {
+    width: auto;
+  }
+}
+
+.flex-1 {
+  flex: 1;
+}
+
 .view-toggle {
   display: flex;
   background: rgba(30, 41, 59, 0.6);
@@ -1162,6 +1178,11 @@
   flex: 1;
   text-align: center;
   touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.toggle-btn:active, .action-btn:active, .preset-chip:active, .run-pipeline-btn:active, .sidebar-agent-card:active {
+  transform: scale(0.98);
 }
 
 @media (min-width: 768px) {

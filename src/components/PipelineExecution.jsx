@@ -19,6 +19,7 @@ export default function PipelineExecution({ prompts, activeAgentId, setActiveAge
   const [snippetSearch, setSnippetSearch] = useState('');
 
   const reportSectionRef = useRef(null);
+  const logsEndRef = useRef(null);
 
   const steps = [
     {
@@ -87,6 +88,13 @@ export default function PipelineExecution({ prompts, activeAgentId, setActiveAge
     }
   }, [executionData]);
 
+  // Auto-scroll terminal logs stream to bottom
+  useEffect(() => {
+    if (logsEndRef.current) {
+      logsEndRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [logs]);
+
   // Filter snippets based on tab and search
   const filteredSnippets = currentTarget.researcherData.snippets.filter(s => {
     const matchesSentiment = snippetFilter === 'all' || s.sentiment === snippetFilter;
@@ -101,6 +109,11 @@ export default function PipelineExecution({ prompts, activeAgentId, setActiveAge
 
   const handleStartPipeline = () => {
     if (isRunning) return;
+
+    // Dismiss mobile virtual keyboard if open
+    if (document.activeElement && typeof document.activeElement.blur === 'function') {
+      document.activeElement.blur();
+    }
 
     setIsRunning(true);
     setCurrentStepIndex(0);
@@ -342,6 +355,7 @@ export default function PipelineExecution({ prompts, activeAgentId, setActiveAge
                 </div>
               ))
             )}
+            <div ref={logsEndRef} />
           </div>
         </div>
 

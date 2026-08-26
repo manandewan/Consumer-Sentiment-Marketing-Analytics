@@ -50,15 +50,17 @@ export default function ReportViewer({ targetName, reportMarkdown, analystMetric
             </button>
           </div>
 
-          <button className="action-btn" onClick={handleCopy} title="Copy Markdown">
-            {copied ? <Check size={16} className="text-emerald-400" /> : <Copy size={16} />}
-            <span>{copied ? 'Copied!' : 'Copy'}</span>
-          </button>
+          <div className="report-buttons-group">
+            <button className="action-btn flex-1" onClick={handleCopy} title="Copy Markdown">
+              {copied ? <Check size={16} className="text-emerald-400" /> : <Copy size={16} />}
+              <span>{copied ? 'Copied!' : 'Copy'}</span>
+            </button>
 
-          <button className="action-btn primary" onClick={handleDownload} title="Download Report">
-            <Download size={16} />
-            <span>Export Report (.md)</span>
-          </button>
+            <button className="action-btn primary flex-1" onClick={handleDownload} title="Download Report">
+              <Download size={16} />
+              <span>Export .md</span>
+            </button>
+          </div>
         </div>
       </div>
 
