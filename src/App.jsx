@@ -11,7 +11,6 @@ export default function App() {
   const [prompts, setPrompts] = useState(DEFAULT_AGENT_PROMPTS);
   const [activeAgentId, setActiveAgentId] = useState(null);
   const [isRunning, setIsRunning] = useState(false);
-  const [currentModel, setCurrentModel] = useState('Gemini 3.6 Flash (High)');
 
   const handleResetPrompts = () => {
     setPrompts(DEFAULT_AGENT_PROMPTS);
@@ -26,7 +25,6 @@ export default function App() {
       <Navbar
         activeTab={activeTab}
         setActiveTab={setActiveTab}
-        currentModel={currentModel}
         isRunning={isRunning}
       />
 
